@@ -15,17 +15,17 @@ form.addEventListener("submit", async (event) => {
         return (content.textContent = "A URL informada não é um short. Por favor, insira uma outra URL.")
     }
 
-   const [_, params] = videoUrl.split("/shorts/")
-   const [videoID] = params.split("?si")
+    const [_, params] = videoUrl.split("/shorts/")
+    const [videoID] = params.split("?si")
 
-   content.textContent = "Obtendo o texto do audio..."
+    content.textContent = "Obtendo o texto do audio..."
 
-   const transcription = await server.get("/summary/" + videoID)
+    const transcription = await server.get("/summary/" + videoID)
 
-   content.textContent = "Realizando o resumo..."
+    content.textContent = "Realizando o resumo..."
 
-   const summary = await server.post("/summary", { text: transcription.data.result,})
+    const summary = await server.post("/summary", { text: transcription.data.result,})
 
-   content.textContent = summary.data.result
-   content.classList.remove("placeholder")
+    content.textContent = summary.data.result
+    content.classList.remove("placeholder")
 })
